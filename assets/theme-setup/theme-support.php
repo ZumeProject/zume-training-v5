@@ -1,5 +1,5 @@
 <?php
-
+return;
 // @todo remove
 
 // Adding WP Functions & Theme Support

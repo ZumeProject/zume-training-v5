@@ -1,5 +1,5 @@
 <?php
-
+return;
 if ( ! defined( 'DT_FUNCTIONS_READY' ) ){
     define( 'DT_FUNCTIONS_READY', true );
 

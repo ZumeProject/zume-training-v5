@@ -1,5 +1,6 @@
 <?php
 
+
 // Fire all our initial functions at the start
 function zume_start() {
 

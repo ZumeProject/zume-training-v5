@@ -139,3 +139,34 @@ $zume_navigation_menu = array(
     __( 'Vision', 'zume' ),
     __( 'Mobile App', 'zume' ),
 );
+
+function zume_menu( $language = 'en' ) {
+    $menu = [
+        'home' => [
+            'label' => __( 'Home', 'zume' ),
+            'visible' => true,
+            'active' => true,
+            'submenu' => []
+        ],
+        'course' => [
+            'label' => __( 'Home', 'zume' ),
+            'visible' => true,
+            'active' => true,
+            'submenu' => [
+                'course_overview' => [
+                    'label' => __( 'Course Overview', 'zume' ),
+                    'visible' => true,
+                    'active' => true,
+                    'submenu' => []
+                ],
+                'groups' => [
+                    'label' => '',
+                    'visible' => true,
+                    'active' => true,
+                    'submenu' => []
+                ],
+            ],
+
+        ]
+    ];
+}
