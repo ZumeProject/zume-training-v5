@@ -5,5 +5,3 @@ foreach ( $dir as $file ){
         require_once( $file );
     }
 }
-
-Site_Link_System::instance();
