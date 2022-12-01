@@ -11,11 +11,10 @@ function get_modal_content( $postid, $lang, $strings ) {
 
     switch_to_locale( $lang );
 
-
     if ( ! is_textdomain_loaded( 'zume' ) ) {
         load_theme_textdomain( 'zume', get_template_directory() .'/translations' );
     }
-    dt_write_log( is_textdomain_loaded( 'zume' ) );
+//    dt_write_log( is_textdomain_loaded( 'zume' ) );
 
     $meta = get_post_meta( (int) $postid );
 
