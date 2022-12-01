@@ -1,0 +1,118 @@
+.pieces {
+    dl, ol, ul {
+        padding-left: 1.8em;
+    }
+    h1 {
+
+    }
+    h2 {
+
+    }
+    h3 {
+        color: #323a68;
+        font-family: Roboto,Arial,sans-serif;
+        font-size: 1.9375rem;
+        line-height: 1.4;
+        font-style: normal;
+        font-weight: 400;
+    }
+}
+
+
+/************
+Sections
+************/
+.gradient-wrapper {
+    background: linear-gradient($gradient-light, $gradient-dark);
+}
+.gradient-wrapper-reverse {
+    background: linear-gradient($gradient-dark, $gradient-light);
+}
+.deep-blue-section {
+    background-color: $primary;
+    padding-bottom: 3em;
+    border-bottom: 1px solid $primary;
+    color: $white;
+
+    h2 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 100;
+        font-size: 3.5em;
+        color: $white;
+        text-align:center;
+    }
+    h3 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        font-size: 1.5em;
+        color: $white;
+    }
+}
+.light-blue-section {
+    background-color: $secondary;
+}
+.white-section {
+    background:white;
+    padding-bottom: 3em;
+    border-bottom: 1px solid $white;
+    color: $primary;
+
+    h2 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 100;
+        font-size: 3.5em;
+        color: $primary;
+        text-align:center;
+    }
+    h3 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        font-size: 1.5em;
+        color: $primary;
+    }
+}
+.white-notch-wrapper {
+    background-color: $primary;
+}
+.white-notch {
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-top: 30px solid white;
+    margin-top:0;
+    margin-bottom:15px;
+}
+.blue-notch-wrapper {
+    background-color: $white;
+}
+.blue-notch {
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-top: 30px solid $primary;
+    margin-top:0;
+    margin-bottom:15px;
+}
+.section-padding {
+    padding: 1em;
+    @media (max-width: $breakpoint-medium ) {
+
+    }
+}
+.content-large {
+    padding: 12px 0;
+    font-size: $large-text;
+
+    @media (max-width: $breakpoint-medium ) {
+        font-size: $medium-text;
+        padding: 8px 0;
+    }
+}
+.large-text {
+    font-size: $large-text;
+}
+
+// Resources page
+.outer {display:block; margin: auto; width:65%; box-sizing: initial;}.bar{ display:block; margin: auto; padding: 10px 10px 10px 10px; background: #21336A; box-sizing: initial;}.bar > h3 { padding-left: 10px; color: #fefefe; display: table-cell; height: 40px; vertical-align: middle; }.resource {display: block; margin:auto; width:90%; padding-bottom: 50px;}.resource-list {display: block; margin: auto; padding-left: 8%; box-sizing: initial;}.resource-icons {display: inline-block; vertical-align: middle; max-width: 100%; height: auto; padding: 5px 10px 5px 0px; box-sizing: initial;}.resource-list li a {color: #21336A !important;}.resource-img {display:block; margin:auto; }.resource-description {display:block; margin:auto; padding: 20px 0px 15px 0px; width: 90%;}.resource-description p {margin-left: 60px; margin-bottom: 10px; display:block;}.resource-heading {margin:auto; text-align:center; padding-bottom: 50px; padding-top: 50px;}.story {width: 90%; height: auto; margin: auto; text-align: center;}.story ul {list-style: none; color: #21336A; width: 90%;  margin:0px; text-align: left;  padding-top: 20px; padding-left: 8%; padding-bottom: 30px;}.link {width: 50%; padding: 5px 10px 5px 10px; text-align:left; display:inline-block;}.submit {text-align: center; background-color: #323a68; color: #fefefe; border: 0px solid #323a68; vertical-align: middle; padding: 10px 15px 10px 15px;}.video-form {padding-top: 20px; display:block; text-align:left; padding-left: 8%;}.google-form {margin:auto; text-align:center; overflow: hidden;} @media only screen and (max-width: 600px) {.outer {display:block; margin: auto; width:100%; box-sizing: initial;}.link {width: 100%; padding: 5px 10px 5px 10px; text-align:left;}}
