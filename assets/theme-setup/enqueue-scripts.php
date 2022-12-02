@@ -38,13 +38,11 @@ function zume_site_scripts() {
     $zume_user_meta = ( is_user_logged_in() ) ? zume_get_user_meta( $zume_user->ID ) : [];
 
     // Register Foundation scripts
-    wp_enqueue_script( 'foundation-js', get_template_directory_uri() . '/foundation-sites/dist/js/foundation.min.js', array( 'jquery' ), "6.4.1", true );
-
+    zume_enqueue_script( 'foundation-js', 'assets/styles/foundation-sites/dist/js/foundation.min.js', array( 'jquery' ), true );
     // Register Foundation styles
-    wp_enqueue_style( 'foundation-css', get_template_directory_uri() . '/foundation-sites/dist/css/foundation.min.css', array(), "6.4.1", 'all' );
+    zume_enqueue_style( 'foundation-css', 'assets/styles/foundation-sites/dist/css/foundation.min.css', array(), 'all' );
 
     // Adding scripts file in the footer
-//    zume_enqueue_script( 'site-js', 'assets/scripts/scripts.js', array( 'jquery' ), true );
     zume_enqueue_script( 'site-js', 'assets/scripts/base.js', array( 'jquery' ), true );
 
     // Register main stylesheet
