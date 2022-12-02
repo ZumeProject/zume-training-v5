@@ -49,37 +49,11 @@ function zume_site_scripts() {
     zume_enqueue_style( 'site-css', 'assets/styles/style.css', array(), 'all' );
     wp_style_add_data( 'site-css', 'rtl', 'replace' );
 
-
-
-
     // Comment reply script for threaded comments
     if ( is_singular() && comments_open() && ( get_option( 'thread_comments' ) == 1 )) {
         wp_enqueue_script( 'comment-reply' );
     }
 
-    /**
-     * Zume 3.0 Features
-     */
-//    if ( 'template-zume-training.php' !== basename( get_page_template() ) && 'landing' !== substr( basename( get_page_template() ), 0, 7 ) ) {
-//        wp_enqueue_script( 'zume', get_template_directory_uri() . '/assets/scripts/zume.js', array( 'jquery' ), 1.1, true );
-//        wp_localize_script(
-//            "zume", "zumeMaps", array(
-//                'root' => esc_url_raw( rest_url() ),
-//                'nonce' => wp_create_nonce( 'wp_rest' ),
-//                'current_user_login' => wp_get_current_user()->user_login,
-//                'current_user_id' => get_current_user_id(),
-//                'theme_uri' => get_stylesheet_directory_uri(),
-//                "translations" => array(
-//                    "delete" => esc_html__( 'Delete', 'zume' ),
-//                    "failed_to_remove" => esc_html__( 'Failed to remove item.', 'zume' ),
-//                    "failed_to_change" => esc_html__( 'Failed to change item.', 'zume' ),
-//                    "print_copyright" => esc_html__( 'Three Month Plan - Zúme Project', 'zume' ),
-//                    "we_got_it" => esc_html__( 'We got it!', 'zume' ),
-//                    "we_got_it_message" => esc_html__( 'We\'re a volunteer network, so give us a few days. We\'ll reach out to you soon as possible!', 'zume' )
-//                )
-//            )
-//        );
-//    }
 
     if ( 'template-zume-course.php' === basename( get_page_template() ) /* 3.0 */ || 'template-zume-course-v4.php' === basename( get_page_template() ) /* 4.0 */ ) {
         wp_enqueue_script( 'jquery-steps', get_template_directory_uri() . '/assets/scripts/jquery.steps.js', array( 'jquery' ), 1.1, true );

@@ -48,21 +48,9 @@ function zume_register_required_plugins() {
             'is_callable'       => 'Psalm_119',
         ),
         array(
-            'name' => 'Host Header Injection Fix',
-            'slug' => 'host-header-injection-fix',
-            'version' => '1.1',
-            'required' => true,
-        ),
-        array(
             'name' => 'iThemes Security',
             'slug' => 'better-wp-security',
             'version' => '6.7.0',
-            'required' => true,
-        ),
-        array(
-            'name' => 'Classic Editor',
-            'slug' => 'classic-editor',
-            'version' => '1.5',
             'required' => true,
         ),
         array(
@@ -71,24 +59,6 @@ function zume_register_required_plugins() {
             'version' => '1.0',
             'required' => true,
         ),
-//        array(
-//            'name' => 'Infinite WP',
-//            'slug' => 'iwp-client',
-//            'version' => '1.6.6.3',
-//            'required' => false,
-//        ),
-//        array(
-//            'name' => 'Analytics Cat',
-//            'slug' => 'analytics-cat',
-//            'version' => '1.0.2',
-//            'required' => false,
-//        ),
-//        array(
-//            'name' => 'Database Browser',
-//            'slug' => 'database-browser',
-//            'version' => '1.4',
-//            'required' => false,
-//        ),
         array(
             'name' => 'PolyLang',
             'slug' => 'polylang',
@@ -103,13 +73,6 @@ function zume_register_required_plugins() {
             'required' => true,
             'force_activation'  => true,
         ),
-//        array(
-//            'name' => 'Peter\'s Login Redirect',
-//            'slug' => 'peters-login-redirect',
-//            'version' => '2.9.1',
-//            'required' => false,
-//            'force_activation'  => false,
-//        )
     );
 
     /*
