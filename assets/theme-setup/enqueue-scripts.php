@@ -37,12 +37,21 @@ function zume_site_scripts() {
     $zume_user = wp_get_current_user();
     $zume_user_meta = ( is_user_logged_in() ) ? zume_get_user_meta( $zume_user->ID ) : [];
 
+    // Register Foundation scripts
+    wp_enqueue_script( 'foundation-js', get_template_directory_uri() . '/foundation-sites/dist/js/foundation.min.js', array( 'jquery' ), "6.4.1", true );
+
+    // Register Foundation styles
+    wp_enqueue_style( 'foundation-css', get_template_directory_uri() . '/foundation-sites/dist/css/foundation.min.css', array(), "6.4.1", 'all' );
+
     // Adding scripts file in the footer
-    zume_enqueue_script( 'site-js', 'assets/scripts/scripts.js', array( 'jquery' ), true );
+//    zume_enqueue_script( 'site-js', 'assets/scripts/scripts.js', array( 'jquery' ), true );
+    zume_enqueue_script( 'site-js', 'assets/scripts/base.js', array( 'jquery' ), true );
 
     // Register main stylesheet
     zume_enqueue_style( 'site-css', 'assets/styles/style.css', array(), 'all' );
     wp_style_add_data( 'site-css', 'rtl', 'replace' );
+
+
 
 
     // Comment reply script for threaded comments
@@ -53,26 +62,26 @@ function zume_site_scripts() {
     /**
      * Zume 3.0 Features
      */
-    if ( 'template-zume-training.php' !== basename( get_page_template() ) && 'landing' !== substr( basename( get_page_template() ), 0, 7 ) ) { /* @todo check necessary page loading. Loading on too many pages? */
-        wp_enqueue_script( 'zume', get_template_directory_uri() . '/assets/scripts/zume.js', array( 'jquery' ), 1.1, true );
-        wp_localize_script(
-            "zume", "zumeMaps", array(
-                'root' => esc_url_raw( rest_url() ),
-                'nonce' => wp_create_nonce( 'wp_rest' ),
-                'current_user_login' => wp_get_current_user()->user_login,
-                'current_user_id' => get_current_user_id(),
-                'theme_uri' => get_stylesheet_directory_uri(),
-                "translations" => array(
-                    "delete" => esc_html__( 'Delete', 'zume' ),
-                    "failed_to_remove" => esc_html__( 'Failed to remove item.', 'zume' ),
-                    "failed_to_change" => esc_html__( 'Failed to change item.', 'zume' ),
-                    "print_copyright" => esc_html__( 'Three Month Plan - Zúme Project', 'zume' ),
-                    "we_got_it" => esc_html__( 'We got it!', 'zume' ),
-                    "we_got_it_message" => esc_html__( 'We\'re a volunteer network, so give us a few days. We\'ll reach out to you soon as possible!', 'zume' )
-                )
-            )
-        );
-    }
+//    if ( 'template-zume-training.php' !== basename( get_page_template() ) && 'landing' !== substr( basename( get_page_template() ), 0, 7 ) ) {
+//        wp_enqueue_script( 'zume', get_template_directory_uri() . '/assets/scripts/zume.js', array( 'jquery' ), 1.1, true );
+//        wp_localize_script(
+//            "zume", "zumeMaps", array(
+//                'root' => esc_url_raw( rest_url() ),
+//                'nonce' => wp_create_nonce( 'wp_rest' ),
+//                'current_user_login' => wp_get_current_user()->user_login,
+//                'current_user_id' => get_current_user_id(),
+//                'theme_uri' => get_stylesheet_directory_uri(),
+//                "translations" => array(
+//                    "delete" => esc_html__( 'Delete', 'zume' ),
+//                    "failed_to_remove" => esc_html__( 'Failed to remove item.', 'zume' ),
+//                    "failed_to_change" => esc_html__( 'Failed to change item.', 'zume' ),
+//                    "print_copyright" => esc_html__( 'Three Month Plan - Zúme Project', 'zume' ),
+//                    "we_got_it" => esc_html__( 'We got it!', 'zume' ),
+//                    "we_got_it_message" => esc_html__( 'We\'re a volunteer network, so give us a few days. We\'ll reach out to you soon as possible!', 'zume' )
+//                )
+//            )
+//        );
+//    }
 
     if ( 'template-zume-course.php' === basename( get_page_template() ) /* 3.0 */ || 'template-zume-course-v4.php' === basename( get_page_template() ) /* 4.0 */ ) {
         wp_enqueue_script( 'jquery-steps', get_template_directory_uri() . '/assets/scripts/jquery.steps.js', array( 'jquery' ), 1.1, true );

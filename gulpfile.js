@@ -1,19 +1,20 @@
 // GULP PACKAGES
 // Most packages are lazy loaded
 var gulp  = require('gulp'),
-    gutil = require('gulp-util'),
-    browserSync = require('browser-sync').create(),
-    filter = require('gulp-filter'),
-    touch = require('gulp-touch-cmd'),
-    plugin = require('gulp-load-plugins')(),
-    chmod = require('gulp-chmod');
+  gutil = require('gulp-util'),
+  browserSync = require('browser-sync').create(),
+  filter = require('gulp-filter'),
+  touch = require('gulp-touch-cmd'),
+  plugin = require('gulp-load-plugins')();
+
+const sass = require('gulp-sass')(require('sass'));
 
 
 // GULP VARIABLES
 // Modify these variables to match your project needs
 
 // Set local URL if using Browser-Sync
-const LOCAL_URL = 'http://jointswp-github.dev/';
+const LOCAL_URL = 'http://jointswp.local/';
 
 // Set path to Foundation files
 const FOUNDATION = 'node_modules/foundation-sites';
@@ -37,17 +38,17 @@ const SOURCE = {
     FOUNDATION + '/dist/js/plugins/foundation.dropdownMenu.js',
     FOUNDATION + '/dist/js/plugins/foundation.equalizer.js',
     FOUNDATION + '/dist/js/plugins/foundation.interchange.js',
-    FOUNDATION + '/dist/js/plugins/foundation.magellan.js',
     FOUNDATION + '/dist/js/plugins/foundation.offcanvas.js',
     FOUNDATION + '/dist/js/plugins/foundation.orbit.js',
-    FOUNDATION + '/dist/js/plugins/foundation.responsiveAccordionTabs.js',
     FOUNDATION + '/dist/js/plugins/foundation.responsiveMenu.js',
     FOUNDATION + '/dist/js/plugins/foundation.responsiveToggle.js',
     FOUNDATION + '/dist/js/plugins/foundation.reveal.js',
     FOUNDATION + '/dist/js/plugins/foundation.slider.js',
     FOUNDATION + '/dist/js/plugins/foundation.smoothScroll.js',
+    FOUNDATION + '/dist/js/plugins/foundation.magellan.js',
     FOUNDATION + '/dist/js/plugins/foundation.sticky.js',
     FOUNDATION + '/dist/js/plugins/foundation.tabs.js',
+    FOUNDATION + '/dist/js/plugins/foundation.responsiveAccordionTabs.js',
     FOUNDATION + '/dist/js/plugins/foundation.toggler.js',
     FOUNDATION + '/dist/js/plugins/foundation.tooltip.js',
 
@@ -59,7 +60,7 @@ const SOURCE = {
   styles: 'assets/styles/scss/**/*.scss',
 
   // Images placed here will be optimized
-  images: 'assets/images/**/*',
+  images: 'assets/images/src/**/*',
 
   php: '**/*.php'
 };
@@ -75,7 +76,10 @@ const JSHINT_CONFIG = {
   "node": true,
   "globals": {
     "document": true,
-    "jQuery": true
+    "window": true,
+    "jQuery": true,
+    "$": true,
+    "Foundation": true
   }
 };
 
@@ -104,8 +108,8 @@ gulp.task('scripts', function() {
     .pipe(plugin.concat('scripts.js'))
     .pipe(plugin.uglify())
     .pipe(plugin.sourcemaps.write('.')) // Creates sourcemap for minified JS
-    .pipe(chmod(0o644))
     .pipe(gulp.dest(ASSETS.scripts))
+    .pipe(touch());
 });
 
 // Compile Sass, Autoprefix and minify
@@ -125,13 +129,10 @@ gulp.task('styles', function() {
       ],
       cascade: false
     }))
-    .pipe(plugin.cssnano())
+    .pipe(plugin.cssnano({safe: true, minifyFontValues: {removeQuotes: false}}))
     .pipe(plugin.sourcemaps.write('.'))
     .pipe(gulp.dest(ASSETS.styles))
-    .pipe(touch())
-    .pipe(browserSync.reload({
-      stream: true
-    }));
+    .pipe(touch());
 });
 
 // Optimize images, move into assets directory
@@ -139,35 +140,33 @@ gulp.task('images', function() {
   return gulp.src(SOURCE.images)
     .pipe(plugin.imagemin())
     .pipe(gulp.dest(ASSETS.images))
+    .pipe(touch());
 });
 
 gulp.task( 'translate', function () {
   return gulp.src( SOURCE.php )
     .pipe(plugin.wpPot( {
-      domain: 'zume',
-      package: 'Zume Project'
-    }))
-  .pipe(gulp.dest('file.pot'));
+      domain: 'jointswp',
+      package: 'Example project'
+    } ))
+    .pipe(gulp.dest('file.pot'));
 });
 
 // Browser-Sync watch files and inject changes
 gulp.task('browsersync', function() {
 
-    // Watch these files
-    var files = [
-      SOURCE.styles,
-      SOURCE.scripts,
-      SOURCE.images,
-      SOURCE.php,
-    ];
+  // Watch these files
+  var files = [
+    SOURCE.php,
+  ];
 
-    browserSync.init(files, {
-      proxy: LOCAL_URL,
-    });
+  browserSync.init(files, {
+    proxy: LOCAL_URL,
+  });
 
-    gulp.watch(SOURCE.styles, gulp.parallel('styles'));
-    gulp.watch(SOURCE.scripts, gulp.parallel('scripts')).on('change', browserSync.reload);
-    gulp.watch(SOURCE.images, gulp.parallel('images'));
+  gulp.watch(SOURCE.styles, gulp.parallel('styles')).on('change', browserSync.reload);
+  gulp.watch(SOURCE.scripts, gulp.parallel('scripts')).on('change', browserSync.reload);
+  gulp.watch(SOURCE.images, gulp.parallel('images')).on('change', browserSync.reload);
 
 });
 
