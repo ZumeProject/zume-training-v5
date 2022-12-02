@@ -1,21 +1,6 @@
-/************************************************
+@use "sass:math";
 
-Stylesheet: Main Stylesheet
-
-*************************************************/
-
-/*********************
-GENERAL STYLES
-*********************/
-
-
-
-/*********************
-LINK STYLES
-*********************/
 a, a:visited {
-
-	// Mobile tap color
 	&:link {
 		//Highlight links on iOS, Similar to :hover for mobile devices.
 		-webkit-tap-highlight-color : rgba( 0, 0, 0, 0.3 );
@@ -215,10 +200,6 @@ iframe#launcher {
     line-height: 1.5em;
 }
 
-
-
-
-
 /*********************
 POSTS & CONTENT STYLES
 *********************/
@@ -238,8 +219,6 @@ POSTS & CONTENT STYLES
 }
 
 .page-title {
-
-	// Remove Foundation vcard styling from author page titles
 	.vcard {
 		border: 0px;
 		padding: 0px;
@@ -316,9 +295,9 @@ POSTS & CONTENT STYLES
 }
 
 // Add Foundation styling to password protect button
-.post-password-form input[type="submit"] {
-	@include button;
-}
+//.post-password-form input[type="submit"] {
+//	@include button;
+//}
 .primary-button {
     display: inline-block;
     vertical-align: middle;
@@ -733,10 +712,6 @@ FOOTER STYLES
 }
 
 /*********************
-FOUNDATION STYLES
-*********************/
-
-/*********************
 PLUGIN STYLES
 *********************/
 // Makes Gravity Forms play nice with Foundation Form styles
@@ -850,9 +825,9 @@ JQUERY STEPS WIZARD
     li:not(:last-child):after {
         content: "";
         position: absolute;
-        border: $border-thickness / 2 #CCC solid;
+        border: $border-thickness #CCC solid;
         left: $step-width - $border-thickness;
-        top: ($step-width / 2) - $border-thickness - 1px;
+        top: ($step-width) - $border-thickness - 1px;
         width: $step-margin + 1px;
         //@media only screen and (max-width: 639px) {
 			//border: 0;
@@ -865,10 +840,10 @@ JQUERY STEPS WIZARD
     li:not(:first-child):before {
         content: "";
         position: absolute;
-        border: $border-thickness / 2 #CCC solid;
+        border: $border-thickness #CCC solid;
         left: -$step-margin - $border-thickness;
         width: $step-margin + 1px;
-        top: ($step-width / 2) - $border-thickness - 1px;
+        top: ($step-width) - $border-thickness - 1px;
         //@media only screen and (max-width: 639px) {
 			//border: 0;
 			//left: 0;
@@ -1047,7 +1022,6 @@ ul.orbit-container {
 /**************************************/
 // Congratulations page after session 10 is complete
 /**************************************/
-
 .congratulations-more {
     display: flex;
     flex-wrap: wrap;
@@ -1116,10 +1090,6 @@ ul.orbit-container {
 
 .hero-blocks {
 	height: 300px;
-}
-
-.starter-switch {
-	@include switch-size(3rem, 6rem, 0.75rem);
 }
 
 .switch {

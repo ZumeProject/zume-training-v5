@@ -1,70 +1,30 @@
 {
-  "name": "jointswp-sass",
-  "version": "6.0.0",
-  "description": "Zume theme.",
+  "name": "zume-training-v5",
+  "version": "5.0.0",
+  "description": "Zume Training",
   "repository": {
     "type": "git",
-    "url": "https://zume.training"
+    "url": "git+https://github.com/ZumeProject/zume-training-v5.git"
   },
-  "author": "Zume",
-  "license": "GPL-2.0 AND MIT",
-  "homepage": "https://zume.training",
-  "devDependencies": {
-    "@babel/core": "^7.20.5",
-    "@babel/eslint-parser": "^7.19.1",
-    "@babel/preset-env": "^7.20.2",
-    "@wordpress/babel-preset-default": "^7.6.0",
-    "add": "^2.0.6",
-    "backstopjs": "^6.1.4",
-    "browser-sync": "^2.27.10",
-    "browser-sync-webpack-plugin": "^2.3.0",
-    "chalk": "^5.1.2",
-    "copy-webpack-plugin": "^11.0.0",
-    "css-loader": "^6.7.2",
-    "download-git-repo": "^3.0.2",
-    "eslint": "^8.28.0",
-    "gulp-plumber": "^1.2.1",
-    "gulp-sourcemaps": "^3.0.0",
-    "import-glob-loader": "^1.1.0",
-    "inquirer": "^9.1.4",
-    "mini-css-extract-plugin": "^2.7.1",
-    "normalize.css": "^8.0.1",
-    "pa11y": "^6.2.3",
-    "postcss-import": "^15.0.1",
-    "postcss-loader": "^7.0.2",
-    "postcss-preset-env": "^7.8.3",
-    "replace-in-file": "^6.3.5",
-    "rollup-plugin-sass": "^1.12.16",
-    "rollup-plugin-sourcemaps": "^0.6.3",
-    "sass": "^1.56.1",
-    "sass-loader": "^13.2.0",
-    "terser-webpack-plugin": "^5.3.6",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.0",
-    "webpack-fix-style-only-entries": "^0.6.1",
-    "webpack-merge": "^5.8.0",
-    "yarn": "^1.22.19"
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ZumeProject/zume-training-v5/issues"
   },
+  "homepage": "https://github.com/ZumeProject/zume-training-v5#readme",
   "scripts": {
-    "postinstall": "npm run build",
-    "build": "gulp",
-    "scripts": "gulp scripts",
-    "styles": "gulp styles",
-    "images": "gulp images",
-    "watch": "gulp watch",
-    "browsersync": "gulp browsersync",
-    "update-foundation": "npm install foundation-sites"
+    "scss": "gulp sass"
   },
-  "browserslist": [
-    "last 2 versions",
-    "IE 11"
-  ],
-  "dependencies": {
-    "foundation-sites": "^6.7.5",
+  "devDependencies": {
     "gulp": "^4.0.2",
-    "gulp-filter": "^7.0.0",
-    "gulp-load-plugins": "^2.0.8",
-    "gulp-touch-cmd": "^0.0.1",
-    "gulp-util": "^3.0.8"
+    "gulp-concat": "^2.6.1",
+    "gulp-minify": "^3.1.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-rtlcss": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "sass": "^1.56.1"
+  },
+  "dependencies": {
+    "foundation-sites": "^6.7.5"
   }
 }
