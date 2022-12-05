@@ -10,6 +10,4 @@ eval eslint \
     --ignore-pattern gulpfile.js \
     --ignore-pattern '*.min.js' \
     --ignore-pattern admin/multi-role/js/min/ \
-    --ignore-pattern '*/foundation-sites/*' \
-    --ignore-pattern assets/styles/foundation-sites/js/ \
     .

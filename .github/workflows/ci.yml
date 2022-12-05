@@ -61,8 +61,6 @@ jobs:
       - name: Test phpcs
         run: ./tests/test_phpcs.sh
 
-      - name: Test eslint
-        run: ./tests/test_eslint.sh
 
       - name: PHPunit
         run: |
