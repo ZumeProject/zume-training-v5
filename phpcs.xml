@@ -24,6 +24,7 @@
   <file>.</file>
 
   <exclude-pattern>*/vendor/*</exclude-pattern>
+  <exclude-pattern>*/node_modules/*</exclude-pattern>
   <exclude-pattern>./assets/theme-setup/tgm-plugin-activation-class.php</exclude-pattern>
   <exclude-pattern>./assets/styles/foundation-sites/*</exclude-pattern>
 
