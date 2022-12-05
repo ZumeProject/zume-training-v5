@@ -11,4 +11,5 @@ eval eslint \
     --ignore-pattern '*.min.js' \
     --ignore-pattern admin/multi-role/ \
     --ignore-pattern assets/styles/foundation-sites/ \
+    --ignore-pattern assets/scripts/jquery.steps.min.js \
     .

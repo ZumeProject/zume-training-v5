@@ -56,7 +56,7 @@ function zume_site_scripts() {
 
 
     if ( 'template-zume-course.php' === basename( get_page_template() ) /* 3.0 */ || 'template-zume-course-v4.php' === basename( get_page_template() ) /* 4.0 */ ) {
-        wp_enqueue_script( 'jquery-steps', get_template_directory_uri() . '/assets/scripts/jquery.steps.js', array( 'jquery' ), 1.1, true );
+        wp_enqueue_script( 'jquery-steps', get_template_directory_uri() . '/assets/scripts/jquery.steps.min.js', array( 'jquery' ), 1.1, true );
         wp_localize_script(
             "jquery-steps", "stepsSettings", array(
                 "translations" => array(
