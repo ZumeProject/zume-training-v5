@@ -8,8 +8,6 @@ eval eslint \
     --ignore-pattern vendor/ \
     --ignore-pattern node_modules/ \
     --ignore-pattern gulpfile.js \
-    --ignore-pattern dt-core/dependencies/ \
-    --ignore-pattern dt-core/libraries/ \
     --ignore-pattern '*.min.js' \
-    --ignore-pattern dt-core/admin/multi-role/js/min/ \
+    --ignore-pattern admin/multi-role/js/min/ \
     .
