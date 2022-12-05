@@ -3,8 +3,8 @@
 // @codingStandardsIgnoreLine
 define( 'DOING_AJAX', true );
 define( 'SHORTINIT', true );
-require_once( $_SERVER['DOCUMENT_ROOT'] . '/wp-load.php' ); // loads the wp framework when called
-$theme_path = $_SERVER['DOCUMENT_ROOT'] . '/wp-content/themes/zume-training/';
+require_once( $_SERVER['DOCUMENT_ROOT'] . '/wp-load.php' ); // @phpcs:ignore
+$theme_path = $_SERVER['DOCUMENT_ROOT'] . '/wp-content/themes/zume-training/'; // @phpcs:ignore
 
 global $wpdb;
 $site_url  = $wpdb->get_var(
@@ -25,7 +25,7 @@ if ( isset( $_GET['id'] ) && ! empty( $_GET['id'] ) ) {
 
     // @todo Add movement logging
 
-    $post = $wpdb->get_row( $wpdb->prepare(
+    $zume_post = $wpdb->get_row( $wpdb->prepare(
         "SELECT pm.post_id, pm.meta_key as tool_number, p.post_title as language_code
                 FROM $wpdb->postmeta pm
                 JOIN $wpdb->posts p ON p.ID=pm.post_id
@@ -33,19 +33,19 @@ if ( isset( $_GET['id'] ) && ! empty( $_GET['id'] ) ) {
                 LIMIT 1",
         $vimeo_id
     ), ARRAY_A );
-    if ( empty( $post ) ) {
+    if ( empty( $zume_post ) ) {
         die( 'Not a recognized id' );
     }
 
-    $post_id = $post['post_id'];
-    $tool_number = $post['tool_number'];
-    $language_code = $post['language_code'] ?? 'en';
+    $zume_post_id = $zume_post['post_id'];
+    $tool_number = $zume_post['tool_number'];
+    $language_code = $zume_post['language_code'] ?? 'en';
     $language_name = 'English';
     $session = '';
-    $title = '';
-    $page_id = zume_landing_page_post_id( $tool_number );
+    $zume_title = '';
+    $zume_page_id = zume_landing_page_post_id( $tool_number );
 
-    $title = $wpdb->get_var( $wpdb->prepare( "SELECT post_title FROM $wpdb->posts WHERE ID = %s", $page_id ) );
+    $zume_title = $wpdb->get_var( $wpdb->prepare( "SELECT post_title FROM $wpdb->posts WHERE ID = %s", $zume_page_id ) );
 
     $languages = json_decode( file_get_contents( $theme_path . '/languages.json' ), true );
     foreach ( $languages as $language ){
@@ -61,28 +61,28 @@ if ( isset( $_GET['id'] ) && ! empty( $_GET['id'] ) ) {
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script><?php // @phpcs:ignore ?>
     </head>
     <body>
         <div style="padding:56.25% 0 0 0;position:relative;">
-            <iframe src="https://player.vimeo.com/video/<?php echo $vimeo_id ?>?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;h=fcfe2172a8"
+            <iframe src="https://player.vimeo.com/video/<?php echo esc_attr( $vimeo_id ) ?>?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;h=fcfe2172a8"
                     frameborder="0" allow="autoplay; fullscreen; picture-in-picture"
                     allowfullscreen
                     style="position:absolute;top:0;left:0;width:100%;height:100%;"
-                    title="<?php echo $vimeo_id ?>">
+                    title="<?php echo esc_attr( $vimeo_id ) ?>">
             </iframe>
         </div>
-        <script src="https://player.vimeo.com/api/player.js"></script>
+        <script src="https://player.vimeo.com/api/player.js"></script><?php // @phpcs:ignore ?>
         <script>
             jQuery(document).ready(function(){
                 let data = {
                     "action": 'studying_offline_' + "<?php echo esc_attr( $tool_number ) ?>",
                     "category": "studying",
-                    "data-language_code": "<?php echo $language_code ?>",
-                    "data-language_name": "<?php echo $language_name ?>",
-                    "data-session": "<?php echo $session ?>",
-                    "data-tool": "<?php echo $tool_number ?>",
-                    "data-title": "<?php echo $title ?>",
+                    "data-language_code": "<?php echo esc_attr( $language_code ) ?>",
+                    "data-language_name": "<?php echo esc_html( $language_name ) ?>",
+                    "data-session": "<?php echo esc_attr( $session ) ?>",
+                    "data-tool": "<?php echo esc_attr( $tool_number ) ?>",
+                    "data-title": "<?php echo esc_html( $zume_title ) ?>",
                     "data-group_size": "1",
                     "data-note": "is studying offline"
                 }
@@ -91,7 +91,7 @@ if ( isset( $_GET['id'] ) && ! empty( $_GET['id'] ) ) {
                     data: JSON.stringify(data),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    url: '<?php echo $site_url ?>/wp-json/movement_logging/v1/log',
+                    url: '<?php echo esc_url( $site_url ) ?>/wp-json/movement_logging/v1/log',
                 })
                     .done(function(response){
                         console.log(response)
@@ -101,7 +101,6 @@ if ( isset( $_GET['id'] ) && ! empty( $_GET['id'] ) ) {
 
     </body>
     </html>
-
     <?php
 }
 /**
@@ -109,19 +108,7 @@ if ( isset( $_GET['id'] ) && ! empty( $_GET['id'] ) ) {
  */
 else if ( isset( $_GET['lang'] ) && ! empty( $_GET['lang'] ) ) {
     $lang = sanitize_text_field( wp_unslash( $_GET['lang'] ) );
-    // is valid language code
-
-
-
 }
-
-
-
-
-
-
-
-
 
 
 

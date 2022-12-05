@@ -139,7 +139,7 @@ function zume_language_relationships( $post_id ) {
 			FROM wp_term_taxonomy tr
             WHERE tr.description LIKE %s AND tr.taxonomy = 'post_translations';
 		",
-        '%' . $wpdb->esc_like($post_id) . '%'
+        '%' . $wpdb->esc_like( $post_id ) . '%'
     ) );
     return maybe_unserialize( $list );
 }

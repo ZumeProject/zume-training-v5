@@ -295,7 +295,7 @@ class Zume_Video_Post_Type
         ?>
         <style>
             .active-spinner {
-                background: url( "<?php echo get_stylesheet_directory_uri() ?>/spinner.svg") no-repeat;
+                background: url( "<?php echo esc_url( get_stylesheet_directory_uri() ) ?>/spinner.svg") no-repeat;
                 background-size: 24px 24px;
                 background-position-x: 50%;
                 background-position-y: 50%;
@@ -303,8 +303,8 @@ class Zume_Video_Post_Type
         </style>
         <script>
             function show_hide_qr() {
-                let qr_raw_link = '<?php echo get_stylesheet_directory_uri() . '/video.php?id='; ?>'
-                let qr_link = '<?php echo urlencode( get_stylesheet_directory_uri() . '/video.php?id=' ); ?>'
+                let qr_raw_link = '<?php echo esc_url( get_stylesheet_directory_uri() ) . '/video.php?id='; ?>'
+                let qr_link = '<?php echo urlencode( esc_url( get_stylesheet_directory_uri() ) . '/video.php?id=' ); ?>'
                 let button = jQuery('#show-hide-qr')
                 let state = button.data('state')
                 let list = jQuery('.viewer-cell')
@@ -415,9 +415,9 @@ class Zume_Video_Post_Type
 
                             if ( $data && false ) {
                                 echo 'QR Code for Independent Viewing<br>';
-                                echo '<img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&color=323a68&data=' . $qr_link . '" name="' . esc_attr( $data ) . '" /><br>';
+                                echo '<img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&color=323a68&data=' . esc_url( $qr_link ) . '" name="' . esc_attr( $data ) . '" /><br>';
                                 echo 'Links To<br>';
-                                echo '<a href="' . $qr_raw_link . '">' . $qr_raw_link .'</a>';
+                                echo '<a href="' . esc_url( $qr_raw_link ) . '">' . esc_url( $qr_raw_link ) .'</a>';
                             }
                             echo '</td><td id="'.esc_attr( $data ).'" class="viewer-cell" data-value="'.esc_attr( $data ).'">';
                             echo '';

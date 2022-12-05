@@ -24,18 +24,7 @@
   <file>.</file>
 
   <exclude-pattern>*/vendor/*</exclude-pattern>
-  <exclude-pattern>functions/utilities/class-tgm-plugin-activation.php</exclude-pattern>
-  <exclude-pattern>functions/login/wplogin_redirect.php</exclude-pattern>
-  <exclude-pattern>functions/utilities/debugger-log.php</exclude-pattern>
-
-  <!-- TODO: re-enable these files: -->
-  <exclude-pattern>functions/coaching/class-coaches-list.php</exclude-pattern>
-  <exclude-pattern>functions/coaching/class-coaches-group-stats.php</exclude-pattern>
-  <exclude-pattern>functions/coaching/class-coaches.php</exclude-pattern>
-  <exclude-pattern>functions/coaching/class-coaches-unassigned-groups.php</exclude-pattern>
-  <exclude-pattern>functions/utilities/tgm-plugin-activation-class.php</exclude-pattern>
-  <exclude-pattern>*/zume-dt-integration/wp-async-request.php</exclude-pattern>
-  <exclude-pattern>template-zume-register.php</exclude-pattern>
+  <exclude-pattern>./assets/theme-setup/tgm-plugin-activation-class.php</exclude-pattern>
 
   <arg name="extensions" value="php,inc,lib"/>
   <arg value="n"/>

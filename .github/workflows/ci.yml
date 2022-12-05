@@ -46,13 +46,30 @@ jobs:
         run: php -v
 
       - name: Install dependencies
-        run: composer install --no-interaction
+        run: |
+          composer install -o
+          export PATH="$HOME/.composer/vendor/bin:$PATH"
+          npm install -g gulp-cli eslint @babel/eslint-parser
+          npm install
 
       - name: Test Syntax
-        run: ./test/test_for_syntax_errors.sh
+        run: ./tests/test_for_syntax_errors.sh
 
       - name: Test Installation
-        run: ./test/test_installation.sh
+        run: ./tests/test_installation.sh
 
       - name: Test phpcs
-        run: ./test/test_phpcs.sh
+        run: ./tests/test_phpcs.sh
+
+      - name: Test eslint
+        run: ./tests/test_eslint.sh
+
+
+
+      - name: PHPunit
+        run: |
+          composer require "phpunit/phpunit=8.*"
+          composer require "yoast/phpunit-polyfills"
+          vendor/phpunit/phpunit/phpunit --version
+          WP_MULTISITE=1 vendor/phpunit/phpunit/phpunit
+

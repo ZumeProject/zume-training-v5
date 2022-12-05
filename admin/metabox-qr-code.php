@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly
 /**
  * ADDS A QR CODE FOR THE PERMALINK INTO A METABOX ON THE SIDE OF THE ADMIN PAGE
  */
-add_action( 'add_meta_boxes', 'qr_metabox_for_pages');
+add_action( 'add_meta_boxes', 'qr_metabox_for_pages' );
 function qr_metabox_for_pages() {
     add_meta_box( 'rm-meta-box-id', esc_html__( 'QR Code', 'text-domain' ), 'qr_metabox_for_pages_box', 'page', 'side', 'high' );
 }

@@ -1,4 +1,6 @@
 <?php
+
+
 /**
  * Plugin installation and activation for WordPress themes.
  *
@@ -16,22 +18,22 @@
  */
 
 /*
-	Copyright 2011 Thomas Griffin (thomasgriffinmedia.com)
+    Copyright 2011 Thomas Griffin (thomasgriffinmedia.com)
 
-	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License, version 2, as
-	published by the Free Software Foundation.
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License, version 2, as
+    published by the Free Software Foundation.
 
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	You should have received a copy of the GNU General Public License
-	along with this program; if not, write to the Free Software
-	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
+// @phpcs::disable
 if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 
     /**
@@ -260,11 +262,11 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
             do_action_ref_array( 'tgmpa_init', array( $this ) );
 
             /*
-			 * Load our text domain and allow for overloading the fall-back file.
-			 *
-			 * {@internal IMPORTANT! If this code changes, review the regex in the custom TGMPA
-			 * generator on the website.}}
-			 */
+             * Load our text domain and allow for overloading the fall-back file.
+             *
+             * {@internal IMPORTANT! If this code changes, review the regex in the custom TGMPA
+             * generator on the website.}}
+             */
             add_action( 'init', array( $this, 'load_textdomain' ), 5 );
             add_filter( 'load_textdomain_mofile', array( $this, 'overload_textdomain_mofile' ), 10, 2 );
 
@@ -1024,10 +1026,16 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
                     if ( true === $GLOBALS['wp_filesystem']->move( $from_path, $to_path ) ) {
                         return trailingslashit( $to_path );
                     } else {
-                        return new WP_Error( 'rename_failed', esc_html__( 'The remote plugin package does not contain a folder with the desired slug and renaming did not work.', 'tgmpa' ) . ' ' . esc_html__( 'Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines.', 'tgmpa' ), array( 'found' => $subdir_name, 'expected' => $desired_slug ) );
+                        return new WP_Error( 'rename_failed', esc_html__( 'The remote plugin package does not contain a folder with the desired slug and renaming did not work.', 'tgmpa' ) . ' ' . esc_html__( 'Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines.', 'tgmpa' ), array(
+                            'found' => $subdir_name,
+                            'expected' => $desired_slug
+                        ) );
                     }
                 } elseif ( empty( $subdir_name ) ) {
-                    return new WP_Error( 'packaged_wrong', esc_html__( 'The remote plugin package consists of more than one file, but the files are not packaged in a folder.', 'tgmpa' ) . ' ' . esc_html__( 'Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines.', 'tgmpa' ), array( 'found' => $subdir_name, 'expected' => $desired_slug ) );
+                    return new WP_Error( 'packaged_wrong', esc_html__( 'The remote plugin package consists of more than one file, but the files are not packaged in a folder.', 'tgmpa' ) . ' ' . esc_html__( 'Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines.', 'tgmpa' ), array(
+                        'found' => $subdir_name,
+                        'expected' => $desired_slug
+                    ) );
                 }
             }
 
@@ -1648,7 +1656,10 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
                     require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
                 }
 
-                $response = plugins_api( 'plugin_information', array( 'slug' => $slug, 'fields' => array( 'sections' => false ) ) );
+                $response = plugins_api( 'plugin_information', array(
+                    'slug' => $slug,
+                    'fields' => array( 'sections' => false )
+                ) );
 
                 $api[ $slug ] = false;
 
@@ -2048,9 +2059,9 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 
             foreach ( $this->plugins as $slug => $plugin ) {
                 /*
-				 * Only proceed forward if the parameter is set to true and plugin is active
-				 * as a 'normal' (not must-use) plugin.
-				 */
+                 * Only proceed forward if the parameter is set to true and plugin is active
+                 * as a 'normal' (not must-use) plugin.
+                 */
                 if ( true === $plugin['force_deactivation'] && is_plugin_active( $plugin['file_path'] ) ) {
                     deactivate_plugins( $plugin['file_path'] );
                     $deactivated[ $plugin['file_path'] ] = time();
@@ -3326,18 +3337,18 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
                         $this->skin->bulk_header();
 
                         /*
-						 * Only start maintenance mode if:
-						 * - running Multisite and there are one or more plugins specified, OR
-						 * - a plugin with an update available is currently active.
-						 * @TODO: For multisite, maintenance mode should only kick in for individual sites if at all possible.
-						 */
+                         * Only start maintenance mode if:
+                         * - running Multisite and there are one or more plugins specified, OR
+                         * - a plugin with an update available is currently active.
+                         * @TODO: For multisite, maintenance mode should only kick in for individual sites if at all possible.
+                         */
                         $maintenance = ( is_multisite() && ! empty( $plugins ) );
 
                         /*
-						[TGMPA - ]
-						foreach ( $plugins as $plugin )
-							$maintenance = $maintenance || ( is_plugin_active( $plugin ) && isset( $current->response[ $plugin] ) );
-						*/
+                        [TGMPA - ]
+                        foreach ( $plugins as $plugin )
+                            $maintenance = $maintenance || ( is_plugin_active( $plugin ) && isset( $current->response[ $plugin] ) );
+                        */
                         if ( $maintenance ) {
                             $this->maintenance_mode( true );
                         }
@@ -3350,23 +3361,23 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
                             $this->update_current++;
 
                             /*
-							[TGMPA - ]
-							$this->skin->plugin_info = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin, false, true);
+                            [TGMPA - ]
+                            $this->skin->plugin_info = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin, false, true);
 
-							if ( !isset( $current->response[ $plugin ] ) ) {
-								$this->skin->set_result('up_to_date');
-								$this->skin->before();
-								$this->skin->feedback('up_to_date');
-								$this->skin->after();
-								$results[$plugin] = true;
-								continue;
-							}
+                            if ( !isset( $current->response[ $plugin ] ) ) {
+                                $this->skin->set_result('up_to_date');
+                                $this->skin->before();
+                                $this->skin->feedback('up_to_date');
+                                $this->skin->after();
+                                $results[$plugin] = true;
+                                continue;
+                            }
 
-							// Get the URL to the zip file.
-							$r = $current->response[ $plugin ];
+                            // Get the URL to the zip file.
+                            $r = $current->response[ $plugin ];
 
-							$this->skin->plugin_active = is_plugin_active($plugin);
-							*/
+                            $this->skin->plugin_active = is_plugin_active($plugin);
+                            */
 
                             $result = $this->run(
                                 array(
@@ -3851,5 +3862,6 @@ if ( ! class_exists( 'TGMPA_Utils' ) ) {
 
             return false;
         }
+
     } // End of class TGMPA_Utils
 } // End of class_exists wrapper
