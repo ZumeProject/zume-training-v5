@@ -9,11 +9,23 @@ fi
 
 found_error=0
 
-while read -d '' filename ; do
 
-    # php -l checks the file for syntax errors
-    php -l "$filename" || found_error=1
+#this is done by phpcs
+#while read -d '' php_filename ; do
+#
+#    # php -l checks the file for syntax errors
+#    php -l "$php_filename" || found_error=1
+#
+#done < <(find . -path ./vendor -prune -o -name "*.php" -print0)
 
-done < <(find . -path ./vendor -prune -o -name "*.php" -print0)
+
+while read -d '' js_filename ; do
+
+    echo "Checking Javascript syntax of $js_filename"
+    # node -c checks the file for syntax errors
+    node -c "$js_filename" || found_error=1
+
+done < <(find . -path ./vendor -prune -path ./dt-core/dependencies -prune -o -path ./node_modules -prune -o -path ./dependencies -prune -o -name "*.js" -print0)
+
 
 exit $found_error

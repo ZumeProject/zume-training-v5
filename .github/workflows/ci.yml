@@ -64,8 +64,6 @@ jobs:
       - name: Test eslint
         run: ./tests/test_eslint.sh
 
-
-
       - name: PHPunit
         run: |
           composer require "phpunit/phpunit=8.*"
