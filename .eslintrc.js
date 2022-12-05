@@ -16,7 +16,15 @@ module.exports = {
     "no-undef": "off",
     "no-unused-vars": "off",
     "no-empty": "off",
-    "no-useless-escape": "off"
+    "no-useless-escape": "off",
+    'no-restricted-syntax': [
+      'error',
+      {
+        message: "Please don't use _. for lodash as it conflict with underscore!",
+        selector:
+          'MemberExpression > Identifier[name="_"]'
+      }
+    ]
   },
   "parser": "@babel/eslint-parser"
 };

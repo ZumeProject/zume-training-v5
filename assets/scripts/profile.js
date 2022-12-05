@@ -1,4 +1,4 @@
-_ = _ || window.lodash // make sure lodash is defined so plugins like gutenberg don't break it.
+__ = _ || window.lodash // make sure lodash is defined so plugins like gutenberg don't break it.
 const i18n = zumeProfile.translations;
 
 
@@ -26,22 +26,22 @@ function write_profile() {
 
 
     jQuery('#profile').empty().html(`
-    <h3 class="section-header">${_.escape( i18n.x1 )/*Your Profile*/}</h3>
+    <h3 class="section-header">${__.escape( i18n.x1 )/*Your Profile*/}</h3>
 
     <style>.label-column { vertical-align: top; width: 100px; white-space: nowrap;}</style>
     <table class="hover stack" id="profile-fields">
         <tr style="vertical-align: top;">
             <td class="label-column">
-                <label for="zume_full_name">${_.escape( i18n.x16 )/*Name*/}</label>
+                <label for="zume_full_name">${__.escape( i18n.x16 )/*Name*/}</label>
             </td>
             <td>
                 <input type="text"
-                       placeholder="${_.escape( i18n.x2 )/*First and last name*/}"
-                       aria-describedby="${_.escape( i18n.x2 )/*First and last name*/}"
+                       placeholder="${__.escape( i18n.x2 )/*First and last name*/}"
+                       aria-describedby="${__.escape( i18n.x2 )/*First and last name*/}"
                        class="profile-input"
                        id="zume_full_name"
                        name="zume_full_name"
-                       value="${_.escape( zumeProfile.user_profile_fields.name )}"
+                       value="${__.escape( zumeProfile.user_profile_fields.name )}"
                        data-abide-ignore />
             </td>
         </tr>
@@ -49,7 +49,7 @@ function write_profile() {
 
         <tr>
             <td class="label-column">
-                <label for="zume_phone_number">${_.escape( i18n.x3 )/*Phone*/}</label>
+                <label for="zume_phone_number">${__.escape( i18n.x3 )/*Phone*/}</label>
             </td>
             <td>
                 <input type="tel"
@@ -57,15 +57,15 @@ function write_profile() {
                        class="profile-input"
                        id="zume_phone_number"
                        name="zume_phone_number"
-                       value="${_.escape( zumeProfile.user_profile_fields.phone )}"
+                       value="${__.escape( zumeProfile.user_profile_fields.phone )}"
                        data-abide-ignore
                 />
             </td>
         </tr>
-        
+
         <tr>
             <td class="label-column">
-                <label for="user_email">${_.escape( i18n.x4 )/*Email*/}</label>
+                <label for="user_email">${__.escape( i18n.x4 )/*Email*/}</label>
             </td>
             <td>
                 <input type="text"
@@ -73,29 +73,29 @@ function write_profile() {
                        placeholder="name@email.com"
                        id="user_email"
                        name="user_email"
-                       value="${_.escape( zumeProfile.user_profile_fields.email )}"
+                       value="${__.escape( zumeProfile.user_profile_fields.email )}"
                        data-abide-ignore
                 />
                 <span class="form-error">
-                  ${_.escape( i18n.x5 )/*This form is required.*/}
+                  ${__.escape( i18n.x5 )/*This form is required.*/}
                 </span>
             </td>
         </tr>
-        
+
         <tr>
             <td class="label-column">
                 <label for="validate_address">
-                    ${_.escape( i18n.x6 )/*City*/}
+                    ${__.escape( i18n.x6 )/*City*/}
                 </label>
             </td>
             <td>
                 <div class="input-group">
                     <input type="text"
-                           placeholder="${_.escape( i18n.x7 )/*example: Denver, CO 80120*/}"
+                           placeholder="${__.escape( i18n.x7 )/*example: Denver, CO 80120*/}"
                            class="profile-input input-group-field"
                            id="validate_address"
                            name="validate_address"
-                           value="${_.escape( location_grid_meta_label )}"
+                           value="${__.escape( location_grid_meta_label )}"
                            onkeyup="validate_timer(jQuery(this).val())"
                            data-abide-ignore
                     />
@@ -109,64 +109,64 @@ function write_profile() {
                 </div>
             </td>
         </tr>
-        
+
         <tr class="label-column">
             <td style="vertical-align: top;">
-                <label for="zume_affiliation_key">${_.escape( i18n.x8 )/*Affiliation Key*/}</label>
+                <label for="zume_affiliation_key">${__.escape( i18n.x8 )/*Affiliation Key*/}</label>
             </td>
             <td>
-                <input type="text" value="${_.escape( zumeProfile.user_profile_fields.affiliation_key )}"
+                <input type="text" value="${__.escape( zumeProfile.user_profile_fields.affiliation_key )}"
                  id="zume_affiliation_key" name="zume_affiliation_key" />
             </td>
         </tr>
 
     </table>
-    
+
     <div data-abide-error  class="alert alert-box" style="display:none;" id="alert">
-        <strong>${_.escape( i18n.x9 )/*Oh snap!*/}</strong>
+        <strong>${__.escape( i18n.x9 )/*Oh snap!*/}</strong>
     </div>
 
 <div class="grid-x">
   <div class="cell center">
-      <button class="button" type="submit" onclick="load_form_validator()" id="submit_profile">${_.escape( i18n.x10 )/*Save*/}</button> <span id="request_spinner"></span>
+      <button class="button" type="submit" onclick="load_form_validator()" id="submit_profile">${__.escape( i18n.x10 )/*Save*/}</button> <span id="request_spinner"></span>
   </div>
 </div>
-    
-    <h3>${_.escape( i18n.x11 )/*Linked Accounts*/}</h3>
+
+    <h3>${__.escape( i18n.x11 )/*Linked Accounts*/}</h3>
     <table class="hover stack">
     <tr id="facebook-row"  class="label-column" style="display: none;">
             <td style="vertical-align: top;">
-                <label>${_.escape( i18n.x12 )/*Linked Facebook Account*/}</label>
+                <label>${__.escape( i18n.x12 )/*Linked Facebook Account*/}</label>
             </td>
             <td>
                 <div class="input-group">
                     <input class="input-group-field profile-input" type="text"
-                           value="${_.escape( zumeProfile.user_profile_fields.facebook_sso_email )}" id="facebook_email" readonly />
+                           value="${__.escape( zumeProfile.user_profile_fields.facebook_sso_email )}" id="facebook_email" readonly />
                     <div class="input-group-button">
-                        <button name="unlink_facebook" value="true" type="button" onclick="unlink_facebook_sso()"  class="button">${_.escape( i18n.x13 )/*Unlink*/}</button>
+                        <button name="unlink_facebook" value="true" type="button" onclick="unlink_facebook_sso()"  class="button">${__.escape( i18n.x13 )/*Unlink*/}</button>
                     </div>
                 </div>
             </td>
         </tr>
-        
+
         <tr id="google-row"  class="label-column" style="display: none;">
             <td style="vertical-align: top;">
-                <label for="google_email">${_.escape( i18n.x14 )/*Linked Google Account*/}</label>
+                <label for="google_email">${__.escape( i18n.x14 )/*Linked Google Account*/}</label>
             </td>
             <td>
                 <div class="input-group">
                     <input class="input-group-field profile-input" type="text"
-                           value="${_.escape( zumeProfile.user_profile_fields.google_sso_email )}" id="google_email" readonly />
+                           value="${__.escape( zumeProfile.user_profile_fields.google_sso_email )}" id="google_email" readonly />
                     <div class="input-group-button">
-                        <button name="unlink_google" value="true" type="button" onclick="unlink_google_sso()" class="button">${_.escape( i18n.x13 )/*Unlink*/}</button>
+                        <button name="unlink_google" value="true" type="button" onclick="unlink_google_sso()" class="button">${__.escape( i18n.x13 )/*Unlink*/}</button>
                     </div>
                 </div>
             </td>
         </tr>
     </table>
-    
 
-    
+
+
   `)
   } /* end if */
 
@@ -247,7 +247,7 @@ function validate_user_address_v4(user_address){
     let multiple_results = jQuery('#multiple-results')
 
     if( data.features.length < 1 ) {
-      multiple_results.empty().append(`${_.escape( i18n.x15 )/*No location matches found. Try a less specific address.*/}`)
+      multiple_results.empty().append(`${__.escape( i18n.x15 )/*No location matches found. Try a less specific address.*/}`)
     }
 
     // Set globals
@@ -261,7 +261,7 @@ function validate_user_address_v4(user_address){
       if( index === 0 ) {
         checked = 'checked'
       }
-      multiple_results.append( `<input type="radio" name="zume_user_address" id="zume_user_address${_.escape( index )}" value="${_.escape( value.id )}" ${_.escape( checked )} /><label for="zume_user_address${_.escape( index )}">${_.escape( value.place_name )}</label><br>`)
+      multiple_results.append( `<input type="radio" name="zume_user_address" id="zume_user_address${__.escape( index )}" value="${__.escape( value.id )}" ${__.escape( checked )} /><label for="zume_user_address${__.escape( index )}">${__.escape( value.place_name )}</label><br>`)
     })
 
     // enable ability to save
@@ -272,7 +272,7 @@ function validate_user_address_v4(user_address){
       let selected_id = jQuery(this).val()
       jQuery.each( window.mapbox_results.features, function(i,v) {
         if ( v.id === selected_id ) {
-          jQuery('#validate_address').val(_.escape( v.place_name ))
+          jQuery('#validate_address').val(__.escape( v.place_name ))
         }
       })
     })
