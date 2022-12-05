@@ -49,7 +49,6 @@ jobs:
         run: |
           composer install -o
           export PATH="$HOME/.composer/vendor/bin:$PATH"
-          npm install -g gulp-cli eslint @babel/eslint-parser
           npm install
 
       - name: Test Syntax
@@ -60,7 +59,6 @@ jobs:
 
       - name: Test phpcs
         run: ./tests/test_phpcs.sh
-
 
       - name: PHPunit
         run: |
