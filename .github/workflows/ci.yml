@@ -60,10 +60,5 @@ jobs:
       - name: Test phpcs
         run: ./tests/test_phpcs.sh
 
-      - name: PHPunit
-        run: |
-          composer require "phpunit/phpunit=8.*"
-          composer require "yoast/phpunit-polyfills"
-          vendor/phpunit/phpunit/phpunit --version
-          WP_MULTISITE=1 vendor/phpunit/phpunit/phpunit
-
+      - name: Test eslint
+        run: ./tests/test_eslint.sh

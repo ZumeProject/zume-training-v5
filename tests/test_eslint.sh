@@ -9,6 +9,6 @@ eval eslint \
     --ignore-pattern node_modules/ \
     --ignore-pattern gulpfile.js \
     --ignore-pattern '*.min.js' \
-    --ignore-pattern admin/multi-role/js/min/ \
-    --ignore-pattern assets/ \
+    --ignore-pattern admin/multi-role/ \
+    --ignore-pattern assets/styles/foundation-sites/ \
     .
