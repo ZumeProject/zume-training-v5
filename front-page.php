@@ -95,11 +95,9 @@ $alt_video = zume_alt_video( $zume_current_lang );
                                 <h1><?php esc_html_e( "Zúme Training", 'zume' ) ?></h1>
                                 <?php esc_html_e( "Zúme Training is an on-line and in-life learning experience designed for small groups who follow Jesus to learn how to obey His Great Commission and make disciples who multiply.", 'zume' ) ?>
                             </div>
-                            <?php if ( zume_v4_ready_language() ) : ?>
                             <div class="cell center">
                                 <a href="<?php echo esc_url( zume_training_url( $zume_current_lang ) ) ?>" class="button primary-button-hollow large" ><?php esc_html_e( "Explore Training", 'zume' ) ?></a>
                             </div>
-                            <?php endif; ?>
                             <div class="cell center">
                                 <img src="<?php echo esc_url( get_stylesheet_directory_uri() ) . '/assets/images/home/'; ?>zume-training.png" alt="Training Image">
                             </div>

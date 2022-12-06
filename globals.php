@@ -1,7 +1,5 @@
 <?php
 
-
-
 function zume_mirror_url(){
     return 'https://storage.googleapis.com/zume-file-mirror/';
 }
@@ -20,15 +18,6 @@ function zume_alt_video( $current_language = null ) {
     return $alt_video;
 }
 
-function zume_v4_ready_language() {
-    $ready = array();
-
-//    $ready['id'] = false;
-
-    $current = zume_current_language();
-
-    return $ready[$current] ?? true;
-}
 
 if ( ! function_exists( 'dt_recursive_sanitize_array' ) ) {
     function dt_recursive_sanitize_array( array $array ) : array {
@@ -111,62 +100,4 @@ function zume_network_sites() {
         return $zume_user_sites;
     }
     return false;
-}
-
-// Navigation Translation Strings for Menu Titles
-$zume_navigation_menu = array(
-    __( 'Home', 'zume' ),
-    __( 'Dashboard', 'zume' ),
-    __( 'About', 'zume' ),
-    __( 'Resources', 'zume' ),
-    __( 'FAQs', 'zume' ),
-    __( 'Resources', 'zume' ),
-    __( 'Training', 'zume' ),
-    __( 'Course', 'zume' ),
-    __( 'Course Overview', 'zume' ),
-    __( 'Groups', 'zume' ),
-    __( 'Checklist', 'zume' ),
-    __( 'Get a Coach', 'zume' ),
-    __( 'Download Guidebook', 'zume' ),
-    __( 'Overview', 'zume' ),
-    __( 'Settings', 'zume' ),
-    __( 'Profile', 'zume' ),
-    __( 'Admin', 'zume' ),
-    __( 'Logout', 'zume' ),
-    __( 'Login', 'zume' ),
-    __( 'Register', 'zume' ),
-    __( 'Three-Month Plan', 'zume' ),
-    __( 'Vision', 'zume' ),
-    __( 'Mobile App', 'zume' ),
-);
-
-function zume_menu( $language = 'en' ) {
-    $menu = [
-        'home' => [
-            'label' => __( 'Home', 'zume' ),
-            'visible' => true,
-            'active' => true,
-            'submenu' => []
-        ],
-        'course' => [
-            'label' => __( 'Home', 'zume' ),
-            'visible' => true,
-            'active' => true,
-            'submenu' => [
-                'course_overview' => [
-                    'label' => __( 'Course Overview', 'zume' ),
-                    'visible' => true,
-                    'active' => true,
-                    'submenu' => []
-                ],
-                'groups' => [
-                    'label' => '',
-                    'visible' => true,
-                    'active' => true,
-                    'submenu' => []
-                ],
-            ],
-
-        ]
-    ];
 }

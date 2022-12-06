@@ -404,12 +404,15 @@ body#tinymce {
 }
 
 
-.menu {
-    .active {
-        a {
-            background: $primary-color;
-        }
+.menu.submenu {
+    .active a {
+        background: $primary-color;
+        color: $white;
     }
+}
+li.menu-item.active > a {
+    background: $primary-color;
+    color: $white;
 }
 a {
     color: $primary-color;

@@ -1003,8 +1003,14 @@ body#tinymce {
   padding-top: 1rem;
 }
 
-.menu .active a {
+.menu.submenu .active a {
   background: #323A68;
+  color: #fefefe;
+}
+
+li.menu-item.active > a {
+  background: #323A68;
+  color: #fefefe;
 }
 
 a {
