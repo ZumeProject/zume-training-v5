@@ -28,6 +28,8 @@ $user = wp_get_current_user();
                 <div class="large-2 cell"></div>
                 <div class="large-8 small-12 cell">
 
+                    <?php do_shortcode('[disciple_tools_login_widget]') ?>
+
                 </div>
                 <div class="large-2 cell"></div>
             </div>
