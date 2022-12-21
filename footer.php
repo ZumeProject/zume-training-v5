@@ -3,6 +3,8 @@
         <div class="medium-1 cell"></div>
         <div class="medium-10 cell center">
 
+            <?php do_shortcode('[zume_footer_logon_modal]' ); ?>
+
             <p class="source-org copyright hide-for-small-only" style="padding-top:50px; opacity:.3;">
                 <span>
                     <a href="https://www.facebook.com/zumemultiplyingdisciples/" target="_blank" rel="noopener"><img src="<?php echo esc_attr( get_template_directory_uri() ); ?>/assets/images/facebook-square.svg" style="height: 23px" title="Facebook"></a>
