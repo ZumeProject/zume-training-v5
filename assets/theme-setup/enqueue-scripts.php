@@ -45,6 +45,10 @@ function zume_site_scripts() {
     // Adding scripts file in the footer
     zume_enqueue_script( 'site-js', 'assets/scripts/base.js', array( 'jquery' ), true );
 
+    // js-cookie
+    wp_register_script( 'js-cookie', 'https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js', [ 'jquery' ], '3.0.1' );
+    wp_enqueue_script( 'js-cookie' );
+
     // Register main stylesheet
     zume_enqueue_style( 'site-css', 'assets/styles/style.css', array(), 'all' );
     wp_style_add_data( 'site-css', 'rtl', 'replace' );
