@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Zume Join The Community
+Template Name: Zume Guidebook
 */
 ?>
 
@@ -15,15 +15,10 @@ Template Name: Zume Join The Community
 
             <div class="max-content-width grid-x grid-margin-x">
                 <div class="cell center">
-                    <h1 class="primary-color-text"><?php esc_html_e( 'Join the Zume Community', 'zume' ) ?></h1>
-                    <p class="primary-color-text"><?php esc_html_e( 'Zúme is a community of practice for those who want to see disciple making movements.', 'zume' ) ?></p>
+                    <h1 class="primary-color-text"><?php esc_html_e( 'Guidebook', 'zume' ) ?></h1>
                 </div>
-
                 <div class="cell">
                     <?php
-                    /**
-                     * Additional Resources section
-                     */
                     if (have_posts()) :
                         while (have_posts()) :
                             the_post();

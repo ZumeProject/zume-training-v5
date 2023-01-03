@@ -47,7 +47,7 @@ if ( isset( $_GET['id'] ) && ! empty( $_GET['id'] ) ) {
 
     $zume_title = $wpdb->get_var( $wpdb->prepare( "SELECT post_title FROM $wpdb->posts WHERE ID = %s", $zume_page_id ) );
 
-    $languages = json_decode( file_get_contents( $theme_path . '/languages.json' ), true );
+    $languages = Zume_Lists::languages();
     foreach ( $languages as $language ){
         if ( $language_code === $language['code'] ) {
             $language_name = $language['enDisplayName'];

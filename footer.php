@@ -3,7 +3,7 @@
         <div class="medium-1 cell"></div>
         <div class="medium-10 cell center">
 
-            <?php do_shortcode('[zume_footer_logon_modal]' ); ?>
+            <?php do_shortcode('[zume_logon_button_with_name]' ); ?>
 
             <p class="source-org copyright hide-for-small-only" style="padding-top:50px; opacity:.3;">
                 <span>
@@ -18,6 +18,7 @@
 </div>  <!-- end .main-content -->
 </div> <!-- end .off-canvas-wrapper -->
 
+<?php do_shortcode('[zume_footer_logon_modal]' ); ?>
 
 <!-- language selector modal -->
 <div id="language-menu-reveal" class="reveal" data-reveal data-v-offset="0">

@@ -15,7 +15,7 @@ function zume_get_english_language_name( $language_code ){
     if ( 'en' === $language_code ) {
         return 'English';
     } else {
-        $languages = json_decode( file_get_contents( get_template_directory() . '/languages.json' ), true );
+        $languages = Zume_Lists::languages();
         foreach ( $languages as $language ){
             if ( $language_code === $language['code'] ) {
                 return $language['enDisplayName'];

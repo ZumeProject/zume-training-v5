@@ -1,15 +1,73 @@
 <?php
 /*
-Template Name: Zume Training
+Template Name: Training v4
 */
+
+get_header();
+$user = wp_get_current_user();
+
+if ( isset( $_GET['iframe'] ) && ! empty( $_GET['iframe'] ) ) {
+    ?>
+    <style>
+        #top-bar {
+            display:none;
+        }
+        #inner-footer {
+            display:none;
+        }
+        #challenge {
+            display:none;
+        }
+    </style>
+    <?php
+}
 
 $current_language = zume_current_language();
 
-get_header();
-
+$zume_first_time = '';
+if ( is_user_logged_in() ) {
+    if ( get_user_meta( get_current_user_id(), 'first_time_login', true ) ) {
+        delete_user_meta( get_current_user_id(), 'first_time_login' );
+        $zume_first_time = 'user_has_just_registered';
+    }
+}
 ?>
-<div class="training">
+<div id="<?php echo esc_attr( $zume_first_time ) ?>" class="training">
     <div  id="inner-content" class="grid-x padding-top-1">
+        <!-------------------------------------------------------------------------------------------------------------
+
+        Challenge section (logged out)
+
+        ------------------------------------------------------------------------------------------------------------->
+        <?php if ( ! is_user_logged_in() ) : ?>
+        <div id="challenge" class="cell">
+            <div class="grid-x ">
+                <div class="large-1 cell"></div> <!-- side padding -->
+
+                <!-- Center Column -->
+                <div class="large-10 cell">
+
+                    <div class="callout">
+                        <div class="grid-x grid-padding-x">
+                            <div class="cell hide-for-small-only medium-1"></div>
+                            <div class="cell medium-7">
+                                <p class="t-ad-message"><?php echo esc_html__( "Plan your group, add members, track your progress, connect with a coach, and add your effort to the global vision!", 'zume' ) ?></p>
+                            </div>
+                            <div class="cell medium-4">
+                                <a href="<?php echo esc_url( zume_register_url( $current_language ) ) ?>" class="button large secondary-button" ><?php echo esc_html__( "Register Forever Free", 'zume' ) ?></a>
+                            </div>
+                        </div>
+                    </div><!-- end #callout -->
+
+                </div> <!-- end center column -->
+
+                <div class="large-1 cell"></div> <!-- side padding -->
+            </div>
+        </div> <!-- end #challenge-->
+        <?php endif; ?>
+        <!-------------------------------------------------------------------------------------------------------------
+        End Challenge
+        -------------------------------------------------------------------------------------------------------------->
 
         <div id="course" class="cell">
             <div class="grid-x">
@@ -17,28 +75,78 @@ get_header();
 
                 <div class="large-10 cell"><!-- Center Column -->
 
-                    <div class="tabs-panel is-active" id="panel1">
+                    <!--------------------------------------------------------------------------------------------------
 
-                        <div class="grid-x">
-                            <div class="cell center text-uppercase">
-                                <h1><?php echo esc_html__( "Zúme Training", 'zume' ) ?></span></h1>
-                                <p class="t-description"><?php echo esc_html__( "10 Sessions, 2 hours each, for groups of 3 - 12", 'zume' ) ?></p>
+                    Tabs (logged in)
+
+                    --------------------------------------------------------------------------------------------------->
+                    <?php if ( is_user_logged_in() ) : ?>
+                        <ul class="tabs" data-tabs id="training-tabs" data-deep-link="true" data-deep-link-smudge="true" data-auto-focus="false">
+                            <li class="tabs-title is-active">
+                                <a href="#panel1" aria-selected="true" onclick="show_panel1()">
+                                    <span class="show-for-small-only"><?php echo esc_html__( "Overview", 'zume' ) ?></span>
+                                    <span class="hide-for-small-only"><?php echo esc_html__( "Course Overview", 'zume' ) ?></span>
+                                </a>
+                            </li>
+                            <li class="tabs-title">
+                                <a data-tabs-target="panel2" href="#panel2" onclick="get_groups()">
+
+                                    <span class="show-for-small-only"> <?php echo esc_html__( "Groups", 'zume' ) ?></span>
+                                    <span class="hide-for-small-only"> <?php echo esc_html__( "My Groups", 'zume' ) ?></span>
+                                </a>
+                            </li>
+                            <li class="tabs-title">
+                                <a data-tabs-target="panel3" href="#panel3" onclick="get_progress()">
+                                    <span class="show-for-small-only"><?php echo esc_html__( "Checklist", 'zume' ) ?></span>
+                                    <span class="hide-for-small-only"><?php echo esc_html__( "My Checklist", 'zume' ) ?></span>
+                                </a>
+                            </li>
+                            <li class="tabs-title">
+                                <a data-tabs-target="panel4" href="#panel4" onclick="get_coach_request()">
+                                    <span class="show-for-small-only"><i class="fi-torso"></i></span>
+                                    <span class="hide-for-small-only"><?php echo esc_html__( "Get a Coach", 'zume' ) ?></span>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    <?php endif; ?>
+
+                    <!-- Training Content Wrapper-->
+                    <div class="callout<?php if ( is_user_logged_in() ) : ?> tabs-content<?php endif; ?>" id="zume-training-course" data-tabs-content="training-tabs">
+                        <!----------------------------------------------------------------------------------------------
+
+                        Course Tab
+
+                        ----------------------------------------------------------------------------------------------->
+                        <div class="tabs-panel is-active hide-for-load" id="panel1">
+
+                            <!-- Training content header -->
+                            <?php if ( ! is_user_logged_in() ) : ?>
+                            <div class="grid-x">
+                                <div class="cell center text-uppercase">
+                                    <h1><?php echo esc_html__( "Zúme Training", 'zume' ) ?></span></h1>
+                                    <p class="t-description"><?php echo esc_html__( "10 Sessions, 2 hours each, for groups of 3 - 12", 'zume' ) ?></p>
+                                </div>
+                                <div class="cell">
+                                    <hr />
+                                </div>
                             </div>
 
-                        </div>
+                            <?php endif; ?>
 
-                        <div class="grid-x grid-padding-x grid-padding-y">
-                            <div class="cell small padding-top-0" id="display-buttons">
+                            <div class="grid-x grid-padding-x grid-padding-y">
+
+                            <div class="cell small padding-top-0 padding-bottom-0" id="display-buttons">
+                                <button id="column_button" type="button" class="button hollow tiny" onclick="toggle_column()"><?php echo esc_html__( "Single Column", 'zume' ) ?></button>
                                 <button id="extra_button" type="button" class="button hollow tiny" onclick="toggle_extra()"><?php echo esc_html__( "Show Session Plan", 'zume' ) ?></button>
                             </div>
-                        </div>
-                        <div class="grid-x grid-padding-x grid-padding-y callout" id="ten-sessions">
 
                             <!-- Session 1 -->
-                            <div class="cell small-12 session">
+                            <div class="cell small-12 large-6 session">
                                 <div class="grid-x grid-padding-x">
-                                    <div class="cell medium-9 overview-title hide-extra"><a onclick="open_session( 1 )"><h2><?php echo esc_html__( 'Session 1', 'zume' ) ?></h2></a></div>
-                                    <div class="cell medium-3 start hide-extra">
+                                    <div class="cell medium-9 overview-title"><a onclick="open_session( 1 )"><h2><?php echo esc_html__( 'Session 1', 'zume' ) ?></h2></a></div>
+                                    <div class="cell medium-3 start">
                                         <a onclick="open_session( 1 )" class="button primary-button-hollow" id="start_session_1"><?php echo esc_html__( "Start", 'zume' ) ?></a>
                                     </div>
                                     <div class="cell small-9 medium-10 t-activities hide-extra" style="display:none;">
@@ -50,8 +158,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 1, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'God Uses Ordinary People', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'God Uses Ordinary People', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 1, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 1, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -64,8 +172,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 2, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Simple Definition of Disciple and Church', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Simple Definition of Disciple and Church', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 2, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 2, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -78,8 +186,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 3, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Spiritual Breathing is Hearing and Obeying God', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Spiritual Breathing is Hearing and Obeying God', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 3, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 3, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -91,8 +199,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 4, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'SOAPS Bible Reading', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'SOAPS Bible Reading', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 4, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 4, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -104,8 +212,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 5, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Accountability Groups', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Accountability Groups', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 5, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 5, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -130,10 +238,10 @@ get_header();
                             </div>
 
                             <!-- Session 2 -->
-                            <div class="cell small-12 session">
+                            <div class="cell small-12 large-6 session">
                                 <div class="grid-x grid-padding-x">
-                                    <div class="cell medium-9 overview-title hide-extra"><a onclick="open_session( 2 )"><h2><?php echo esc_html__( 'Session 2', 'zume' ) ?></h2></a></div>
-                                    <div class="cell medium-3 start hide-extra">
+                                    <div class="cell medium-9 overview-title"><a onclick="open_session( 2 )"><h2><?php echo esc_html__( 'Session 2', 'zume' ) ?></h2></a></div>
+                                    <div class="cell medium-3 start">
                                         <a onclick="open_session( 2 )" class="button primary-button-hollow" id="start_session_2"><?php echo esc_html__( "Start", 'zume' ) ?></a>
                                     </div>
                                     <div class="cell small-9 medium-10 t-activities hide-extra">
@@ -145,8 +253,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 6, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Consumer vs Producer Lifestyle', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Consumer vs Producer Lifestyle', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 6, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 6, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -158,8 +266,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 7, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'How to Spend an Hour in Prayer', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'How to Spend an Hour in Prayer', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 7, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 7, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -183,8 +291,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 8, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Relational Stewardship - List of 100', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Relational Stewardship - List of 100', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 8, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 8, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -209,10 +317,10 @@ get_header();
                             </div>
 
                             <!-- Session 3 -->
-                            <div class="cell small-12 session">
+                            <div class="cell small-12 large-6 session">
                                 <div class="grid-x grid-padding-x">
-                                    <div class="cell medium-9 overview-title hide-extra"><a onclick="open_session( 3 )"><h2><?php echo esc_html__( 'Session 3', 'zume' ) ?></h2></a></div>
-                                    <div class="cell medium-3 start hide-extra">
+                                    <div class="cell medium-9 overview-title"><a onclick="open_session( 3 )"><h2><?php echo esc_html__( 'Session 3', 'zume' ) ?></h2></a></div>
+                                    <div class="cell medium-3 start">
                                         <a onclick="open_session( 3 )" class="button primary-button-hollow" id="start_session_3"><?php echo esc_html__( "Start", 'zume' ) ?></a>
                                     </div>
                                     <div class="cell small-9 medium-10 t-activities hide-extra">
@@ -224,8 +332,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 9, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'The Kingdom Economy', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'The Kingdom Economy', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 9, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 9, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -243,8 +351,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 10, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'The Gospel and How to Share It', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'The Gospel and How to Share It', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 10, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 10, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -262,8 +370,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 11, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Baptism and How To Do It', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Baptism and How To Do It', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 11, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 11, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -282,10 +390,10 @@ get_header();
                             </div>
 
                             <!-- Session 4 -->
-                            <div class="cell small-12 session">
+                            <div class="cell small-12 large-6 session">
                                 <div class="grid-x grid-padding-x">
-                                    <div class="cell medium-9 overview-title hide-extra"><a onclick="open_session( 4 )"><h2><?php echo esc_html__( 'Session 4', 'zume' ) ?></h2></a></div>
-                                    <div class="cell medium-3 start hide-extra">
+                                    <div class="cell medium-9 overview-title"><a onclick="open_session( 4 )"><h2><?php echo esc_html__( 'Session 4', 'zume' ) ?></h2></a></div>
+                                    <div class="cell medium-3 start">
                                         <a onclick="open_session( 4 )" class="button primary-button-hollow" id="start_session_4"><?php echo esc_html__( "Start", 'zume' ) ?></a>
                                     </div>
                                     <div class="cell small-9 medium-10 t-activities hide-extra">
@@ -297,8 +405,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 12, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Prepare Your 3-Minute Testimony', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Prepare Your 3-Minute Testimony', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 12, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 12, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -316,8 +424,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 13, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Vision Casting the Greatest Blessing', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Vision Casting the Greatest Blessing', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 13, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 13, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -329,8 +437,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 14, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Duckling Discipleship - Leading Immediately', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Duckling Discipleship - Leading Immediately', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 14, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 14, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -342,8 +450,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 15, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( "Eyes to See Where the Kingdom Isn't", 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( "Eyes to See Where the Kingdom Isn't", 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 15, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 15, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -355,8 +463,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 16, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( "The Lord's Supper and How to Lead It", 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( "The Lord's Supper and How to Lead It", 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 16, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 16, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -381,10 +489,10 @@ get_header();
                             </div>
 
                             <!-- Session 5 -->
-                            <div class="cell small-12 session">
+                            <div class="cell small-12 large-6 session">
                                 <div class="grid-x grid-padding-x">
-                                    <div class="cell medium-9 overview-title hide-extra"><a onclick="open_session( 5 )"><h2><?php echo esc_html__( 'Session 5', 'zume' ) ?></h2></a></div>
-                                    <div class="cell medium-3 start hide-extra">
+                                    <div class="cell medium-9 overview-title"><a onclick="open_session( 5 )"><h2><?php echo esc_html__( 'Session 5', 'zume' ) ?></h2></a></div>
+                                    <div class="cell medium-3 start">
                                         <a onclick="open_session( 5 )" class="button primary-button-hollow" id="start_session_5"><?php echo esc_html__( "Start", 'zume' ) ?></a>
                                     </div>
                                     <div class="cell small-9 medium-10 t-activities hide-extra">
@@ -396,8 +504,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 17, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Prayer Walking and How To Do It', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Prayer Walking and How To Do It', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 17, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 17, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -409,8 +517,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 18, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'A Person of Peace and How To Find One', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'A Person of Peace and How To Find One', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 18, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 18, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -422,8 +530,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 19, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'The BLESS Prayer Pattern', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'The BLESS Prayer Pattern', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 19, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 19, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -454,10 +562,10 @@ get_header();
                             </div>
 
                             <!-- Session 6 -->
-                            <div class="cell small-12 session">
+                            <div class="cell small-12 large-6 session">
                                 <div class="grid-x grid-padding-x">
-                                    <div class="cell medium-9 overview-title hide-extra"><a onclick="open_session( 6 )"><h2><?php echo esc_html__( 'Session 6', 'zume' ) ?></h2></a></div>
-                                    <div class="cell medium-3 start hide-extra">
+                                    <div class="cell medium-9 overview-title"><a onclick="open_session( 6 )"><h2><?php echo esc_html__( 'Session 6', 'zume' ) ?></h2></a></div>
+                                    <div class="cell medium-3 start">
                                         <a onclick="open_session( 6 )" class="button primary-button-hollow" id="start_session_6"><?php echo esc_html__( "Start", 'zume' ) ?></a>
                                     </div>
                                     <div class="cell small-9 medium-10 t-activities hide-extra">
@@ -469,8 +577,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 20, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Faithfulness is Better Than Knowledge', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Faithfulness is Better Than Knowledge', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 20, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 20, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -482,8 +590,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 21, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( '3/3 Group Meeting Pattern', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( '3/3 Group Meeting Pattern', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 21, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 21, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -503,17 +611,17 @@ get_header();
                             </div>
 
                             <!-- Session 7 -->
-                            <div class="cell small-12 session">
+                            <div class="cell small-12 large-6 session">
                                 <div class="grid-x grid-padding-x">
-                                    <div class="cell medium-9 overview-title hide-extra"><a onclick="open_session( 7 )"><h2><?php echo esc_html__( 'Session 7', 'zume' ) ?></h2></a></div>
-                                    <div class="cell medium-3 start hide-extra">
+                                    <div class="cell medium-9 overview-title"><a onclick="open_session( 7 )"><h2><?php echo esc_html__( 'Session 7', 'zume' ) ?></h2></a></div>
+                                    <div class="cell medium-3 start">
                                         <a onclick="open_session( 7 )" class="button primary-button-hollow" id="start_session_7"><?php echo esc_html__( "Start", 'zume' ) ?></a>
                                     </div>
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 22, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Training Cycle for Maturing Disciples', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Training Cycle for Maturing Disciples', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 22, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 22, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -544,10 +652,10 @@ get_header();
                             </div>
 
                             <!-- Session 8 -->
-                            <div class="cell small-12 session">
+                            <div class="cell small-12 large-6 session">
                                 <div class="grid-x grid-padding-x">
-                                    <div class="cell medium-9 overview-title hide-extra"><a onclick="open_session( 8 )"><h2><?php echo esc_html__( 'Session 8', 'zume' ) ?></h2></a></div>
-                                    <div class="cell medium-3 start hide-extra">
+                                    <div class="cell medium-9 overview-title"><a onclick="open_session( 8 )"><h2><?php echo esc_html__( 'Session 8', 'zume' ) ?></h2></a></div>
+                                    <div class="cell medium-3 start">
                                         <a onclick="open_session( 8 )" class="button primary-button-hollow" id="start_session_8"><?php echo esc_html__( "Start", 'zume' ) ?></a>
                                     </div>
                                     <div class="cell small-9 medium-10 t-activities hide-extra">
@@ -559,8 +667,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 23, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Leadership Cells', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Leadership Cells', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 23, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 23, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -585,10 +693,10 @@ get_header();
                             </div>
 
                             <!-- Session 9 -->
-                            <div class="cell small-12 session">
+                            <div class="cell small-12 large-6 session">
                                 <div class="grid-x grid-padding-x">
-                                    <div class="cell medium-9 overview-title hide-extra"><a onclick="open_session( 9 )"><h2><?php echo esc_html__( 'Session 9', 'zume' ) ?></h2></a></div>
-                                    <div class="cell medium-3 start hide-extra">
+                                    <div class="cell medium-9 overview-title"><a onclick="open_session( 9 )"><h2><?php echo esc_html__( 'Session 9', 'zume' ) ?></h2></a></div>
+                                    <div class="cell medium-3 start">
                                         <a onclick="open_session( 9 )" class="button primary-button-hollow" id="start_session_9"><?php echo esc_html__( "Start", 'zume' ) ?></a>
                                     </div>
                                     <div class="cell small-9 medium-10 t-activities hide-extra">
@@ -600,8 +708,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 24, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Expect Non-Sequential Growth', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Expect Non-Sequential Growth', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 24, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 24, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -613,8 +721,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 25, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Pace of Multiplication Matters', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Pace of Multiplication Matters', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 25, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 25, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -626,8 +734,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 26, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Always Part of Two Churches', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Always Part of Two Churches', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 26, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 26, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -666,10 +774,10 @@ get_header();
                             </div>
 
                             <!-- Session 10 -->
-                            <div class="cell small-12 session">
+                            <div class="cell small-12 large-6 session">
                                 <div class="grid-x grid-padding-x">
-                                    <div class="cell medium-9 overview-title hide-extra"><a onclick="open_session( 10 )"><h2><?php echo esc_html__( 'Session 10', 'zume' ) ?></h2></a></div>
-                                    <div class="cell medium-3 start hide-extra">
+                                    <div class="cell medium-9 overview-title"><a onclick="open_session( 10 )"><h2><?php echo esc_html__( 'Session 10', 'zume' ) ?></h2></a></div>
+                                    <div class="cell medium-3 start">
                                         <a onclick="open_session( 10 )" class="button primary-button-hollow" id="start_session_10"><?php echo esc_html__( "Start", 'zume' ) ?></a>
                                     </div>
                                     <div class="cell small-9 medium-10 t-activities hide-extra">
@@ -681,8 +789,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 28, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Coaching Checklist', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Coaching Checklist', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 28, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 28, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -700,8 +808,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 29, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Leadership in Networks', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Leadership in Networks', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 29, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 29, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -713,8 +821,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 30, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Peer Mentoring Groups', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Peer Mentoring Groups', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 30, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 30, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -726,8 +834,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 31, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Four Fields Tool', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Four Fields Tool', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 31, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 31, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -739,8 +847,8 @@ get_header();
                                     <div class="cell medium-10">
                                         <?php if ( empty( zume_get_landing_title( 32, $current_language ) ) ) : ?>
                                             <span class="training-item">
-                                            <?php esc_html_e( 'Generational Mapping', 'zume' ); ?>
-                                        </span>
+                                                <?php esc_html_e( 'Generational Mapping', 'zume' ); ?>
+                                            </span>
                                         <?php else : ?>
                                             <a href="<?php echo esc_url( zume_get_landing_translation_url( 32, $current_language ) ) ?>"><?php echo esc_html( zume_get_landing_title( 32, $current_language ) ) ?></a>
                                         <?php endif; ?>
@@ -777,6 +885,36 @@ get_header();
                             </div>
                         </div>
 
+                        </div>
+                        <!----------------------------------------------------------------------------------------------
+
+                        My Groups Tab (logged in)
+
+                        ----------------------------------------------------------------------------------------------->
+                        <div class="tabs-panel" id="panel2">
+                            <div class="grid-x"><div class="cell center border-bottom " id="add_group_container"><!-- add button--></div></div>
+                            <div id="invitation-list"><!-- invitation section--></div>
+                            <div class="grid-x margin-top-2" id="group-list"><!-- group list --></div>
+                            <div id="archive-list"><!-- archive section--></div>
+                        </div>
+                        <!----------------------------------------------------------------------------------------------
+
+                        My Progress Tab (logged in)
+
+                        ----------------------------------------------------------------------------------------------->
+                        <div class="tabs-panel" id="panel3">
+                            <div class="grid-x" id="progress-stats"><div class="loader">Loading...</div></div>
+                        </div>
+                        <!----------------------------------------------------------------------------------------------
+
+                         Get a Coach (logged in)
+
+                         ----------------------------------------------------------------------------------------------->
+                        <div class="tabs-panel" id="panel4">
+                            <div class="grid-x" id="coach-request"><div class="loader">Loading...</div></div>
+                        </div>
+
+                    </div> <!-- end #callout -->
 
                 </div> <!-- end center column -->
 

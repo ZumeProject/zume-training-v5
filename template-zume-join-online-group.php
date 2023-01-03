@@ -1,11 +1,11 @@
 <?php
 /*
-Template Name: Zume Profile
+Template Name: Zume Join Online Group
 */
-
 ?>
 
 <?php get_header(); ?>
+
 
 <div id="content">
 
@@ -15,9 +15,8 @@ Template Name: Zume Profile
 
             <div class="max-content-width grid-x grid-margin-x">
                 <div class="cell center">
-                    <h1 class="primary-color-text"><?php esc_html_e( 'Profile', 'zume' ) ?></h1>
+                    <h1 class="primary-color-text"><?php esc_html_e( 'Online Groups You Can Join', 'zume' ) ?></h1>
                 </div>
-
                 <div class="cell">
                     <?php
                     if (have_posts()) :

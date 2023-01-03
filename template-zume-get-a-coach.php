@@ -18,19 +18,8 @@ Template Name: Zume Get A Coach
                     <h1 class="primary-color-text"><?php esc_html_e( 'Get a Coach', 'zume' ) ?></h1>
                 </div>
 
-                <div class="cell">
-                    <?php
-                    /**
-                     * Additional Resources section
-                     */
-                    if (have_posts()) :
-                        while (have_posts()) :
-                            the_post();
-                            the_content();
-                        endwhile;
-                    endif;
-                    ?>
-                </div>
+                <div class="cell" id="form-container"></div>
+
             </div>
 
         </div> <!-- end #main -->
@@ -38,5 +27,13 @@ Template Name: Zume Get A Coach
     </div> <!-- end #inner-content -->
 
 </div><!-- end #content -->
+
+<script>
+    jQuery(document).ready(function(){
+        jQuery('#coach-request').html(`
+
+        `)
+    })
+</script>
 
 <?php get_footer(); ?>

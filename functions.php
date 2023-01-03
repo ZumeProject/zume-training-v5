@@ -15,7 +15,3 @@ new DT_Mapping_Module_Loader( 'theme' );
 require_once( 'integrations/loader.php' );
 require_once( 'post-types/loader.php' );
 require_once( 'translations/translation.php' );
-
-
-require_once( 'v4/loader.php' );
-
